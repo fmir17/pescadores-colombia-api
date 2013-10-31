@@ -1,0 +1,21 @@
+{
+  "name": "pescadores-colombia-api",
+  "version": "0.0.1",
+  "description": "Pescadores Colombia API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jadiosa/pescadores-colombia-api"
+  },
+  "author": "SpinnerLabs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jadiosa/pescadores-colombia-api/issues"
+  },
+  "dependencies": {
+    "express": "~3.4.3"
+  }
+}
