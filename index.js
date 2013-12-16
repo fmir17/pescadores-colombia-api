@@ -1,12 +1,15 @@
 //Module dependencies.
 var express = require('express'),  
   mongoose = require('mongoose'),  
-  http = require('http');   
+  http = require('http');
+//Aplicación
 var app = express();  
   
-//Uso de metodos del fw express, para implementar los metodos GET/POST
-app.configure(function(){  
+//Configuración de la aplicación
+app.configure(function(){
+//parsear el cuerpo del request para uso del POST.
   app.use(express.bodyParser());  
+//middleware que hace posible el soporte de requests tipo PUT o DELETE 
   app.use(express.methodOverride());  
   app.use(app.router);  
 });  
@@ -35,10 +38,8 @@ mongoose.connect(uristring, function (err, res) {
   }
 });
 
-//Se inicia el servidor
+//Se Crea y se Inicia el servidor indicandole en que puerto vamos a estar escuchando
 http.createServer(app).listen(port); 
 
 console.log('Pescadores Colombia API listening on port', port);
-
-
 

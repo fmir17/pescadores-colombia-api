@@ -31,8 +31,11 @@ module.exports = function(app){
 
     //Buscar todos los comentarios en el muro
     listWall = function(req, res){
+	console.log("Entre a metodo");
         Wall.find(function(err, wall) {
+	console.log("Entre a metodo2");
             res.send(wall);
+	console.log("Entre a metodo3");
         });
 
     };
