@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
 //Esquema para Muro
 var wallSchema = new Schema({
     author: String,
-    body: String
+    body: String,
+    created_at : { type: Date, default: Date.now }
 });
 
 //Exportar esquema
