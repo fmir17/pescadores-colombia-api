@@ -1,0 +1,119 @@
+<h2><p>Documentaci&oacute;n del API RESTful</p></h2>
+	<strong>Aplicaci&oacute;n desplegada en:</strong>
+
+<ul>
+    <li>http://pescadores-colombia-api.spinnerlabs.co</li>
+    <li>http://pescadores-colombia-api.herokuapp.com</li>
+</ul>
+
+<h3>M&eacute;todos para Usuarios:</h3>
+<h4>Registrar nuevo usuario</h4>
+<em>Explicaci&oacute;n:</em> Servicio que permite guardar un nuevo usuario en la base de datos.<br/>
+<em>M&eacute;todo:</em> POST<br/>
+<em>URL:</em> /user<br/>
+<em>Par&aacute;metro de datos:</em> Se espera ingrese un objeto JSON, en donde se espera informaci&oacute;n de un usuario, de la siguiente forma:<br/>
+user:<br/>
+
+<table>
+ {<br/>
+    <tr><td><td><td>id: String,<br/>
+        name: String,<br/>
+	familyName: String,<br/>
+        email: String,<br/>
+	city: String<br/>
+</td></tr>
+<tr><td>
+}<br/>
+</td></tr>
+</table>
+
+		
+<em>Respuesta: </em>Se espera que sea ingresado satisfactoriamente a la base de datos.
+<h4>Consultar usuario existente:</h4>
+<em>Explicaci&oacute;n:</em> Consulta usuario con el campo id, si ese usuario est&aacute; en la base de datos muestra sus datos.<br/>
+<em>M&eacute;todo:</em> GET<br/>
+<em>URL:</em> /user/id<br/>
+<em>Par&aacute;metros URL:</em> id=[String]<br/>
+<em>Respuesta:</em> Se espera que el sistema muestre la informaci&oacute;n del usuario consultado<br/>
+<em>Ejemplo:</em> http://pescadores-colombia-api.herokuapp.com/user/5005]<br/>
+
+
+<table>
+{<br/>
+    <tr><td><td><td>"id": "5005",<br/>
+    "name": "Sebastian",<br/>
+    "familyName": "Gallego",<br/>
+    "email": "segaher13@gmail.com",<br/>
+    "city": "Medellin"<br/>
+
+</td></tr>
+<tr><td>
+}<br/>
+</td></tr>
+</table>
+
+<h4>Listar usuarios:</h4>
+<em>Explicaci&oacute;n:</em> Consulta todos los usuarios guardados en la base de datos<br/>
+<em>M&eacute;todo:</em> GET<br/>
+<EM>URL:</EM> /user/<br/>
+<em>Respuesta:</em> Se espera que el sistema muestre la informaci&oacute;n de todos los usuarios registrados en la base de datos:<br/>
+<br/>
+
+<h4>Eliminar Usuarios</h4>
+<em>Explicaci&oacute;n:</em> Elimina usuario con el campo id.<br/>
+<em>M&eacute;todo:</em> DELETE<br/>
+<EM>URL:</EM> /user/id<br/>
+Par&aacute;metros <EM>URL:</EM> id=[String]<br/>
+<em>Respuesta:</em> Se espera que el sistema elimine<br/>
+
+
+<h3>M&eacute;todos para Muro:</h3>
+
+<h4>Registrar nuevo comentario </h4>
+<em>Explicaci&oacute;n:</em> Sirve para ingresar un nuevo usuario a la base de datos.<br/>
+<em>M&eacute;todo:</em> POST<br/>
+<EM>URL:</EM> /wall<br/>
+<em>Par&aacute;metro de datos:</em> se espera ingrese un objeto JSON, el esquema es el siguiente:<br/>
+wall:<br/>
+
+<table>
+{<br/>
+    <tr><td><td><td>    			 author: String,<br/>
+			 body: String,
+
+</td></tr>
+<tr><td>
+}<br/>
+</td></tr>
+</table><em>Respuesta:</em> Se espera que sea ingresado satisfactoriamente a la base de datos.<br/>
+
+<h4>Listar Comentarios:</h4>
+<em>Explicaci&oacute;n:</em> Consulta todos los comentarios guardados en la base de datos<br/>
+<em>M&eacute;todo:</em> GET<br/>
+<EM>URL:</EM> /wall/<br/>
+<em>Respuesta:</em>  Se espera que el sistema muestre la informaci&oacute;n de todos los comentarios registrados en la base de datos:<br/>
+
+
+<h3>M&eacute;todos para Imagenes:</h3>
+
+<h4>Registrar nueva URL:</h4>
+<em>Explicaci&oacute;n:</em> Servicio que permite almacenar url’s de im&aacute;genes<br/>
+<em>M&eacute;todo:</em> POST<br/>
+<EM>URL:</EM> /image<br/>
+<em>Par&aacute;metro de datos:</em> Se espera ingrese un objeto JSON, el esquema es el siguiente:<br/>
+image:<br/>
+<table>
+<tr>{
+	<td>uri: String
+</td><td>
+}<br/>
+</td></tr>
+</table>
+<em>Respuesta:</em> se espera que sea ingresado satisfactoriamente a la base de datos.<br/>
+
+
+<h4>Listar Im&aacute;genes:</h4>
+<em>Explicaci&oacute;n:</em> Consulta las ultimas 4 url&#39;s ingresadas<br/>
+<em>M&eacute;todo:</em> GET<br/>
+<EM>URL:</EM> /image<br/>
+<em>Respuesta:</em> se espera que el sistema muestre las ultimas 4 url&#39;s ingresadas<br/>

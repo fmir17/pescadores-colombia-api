@@ -25,8 +25,11 @@ app.all('*', function(req, res, next) {
   next();
  });
 
-app.get('/', function(req, res, next) {
-  // Handle the get for this route
+app.get('/', function(request, response) {
+var fs = require('fs');
+
+var buf = new Buffer(fs.readFileSync('homepage.html','utf8'));
+  response.send(buf.toString());
 });
 
 app.post('/', function(req, res, next) {
