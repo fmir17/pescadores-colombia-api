@@ -1,6 +1,5 @@
-
 <h2><p>Documentaci&oacute;n del API RESTful</p></h2>
-	<strong>Aplicaci&oacute;n desplegada en:</strong>
+    <strong>Aplicaci&oacute;n desplegada en:</strong>
 
 <ul>
     <li>http://pescadores-colombia-api.spinnerlabs.co</li>
@@ -17,18 +16,18 @@ user:<br/>
 
 <table>
  {<br/>
-    <tr><td><td><td>id: String,<br/>
-        name: String,<br/>
-	familyName: String,<br/>
-        email: String,<br/>
-	city: String<br/>
+    <tr><td><td><td>"id": "String",<br/>
+        "name": "String",<br/>
+    "familyName": "String",<br/>
+        "email": "String",<br/>
+    "city": "String"<br/>
 </td></tr>
 <tr><td>
 }<br/>
 </td></tr>
 </table>
 
-		
+        
 <em>Respuesta: </em>Se espera que sea ingresado satisfactoriamente a la base de datos.
 <h4>Consultar usuario existente:</h4>
 <em>Explicaci&oacute;n:</em> Consulta usuario con el campo id, si ese usuario est&aacute; en la base de datos muestra sus datos.<br/>
@@ -39,19 +38,7 @@ user:<br/>
 <em>Ejemplo:</em> http://pescadores-colombia-api.herokuapp.com/user/5005]<br/>
 
 
-<table>
-{<br/>
-    <tr><td><td><td>"id": "5005",<br/>
-    "name": "Sebastian",<br/>
-    "familyName": "Gallego",<br/>
-    "email": "segaher13@gmail.com",<br/>
-    "city": "Medellin"<br/>
 
-</td></tr>
-<tr><td>
-}<br/>
-</td></tr>
-</table>
 
 <h4>Listar usuarios:</h4>
 <em>Explicaci&oacute;n:</em> Consulta todos los usuarios guardados en la base de datos<br/>
@@ -79,8 +66,8 @@ wall:<br/>
 
 <table>
 {<br/>
-    <tr><td><td><td>    			 author: String,<br/>
-			 body: String,
+    <tr><td><td><td>                 "author": "String",<br/>
+             "body": "String"
 
 </td></tr>
 <tr><td>
@@ -105,11 +92,12 @@ wall:<br/>
 image:<br/>
 <table>
 <tr>{
-	<td>uri: String
-</td><td>
-}<br/>
+    <td><td><td>        "url": "String"
+</td>
+
 </td></tr>
 </table>
+}<br/>
 <em>Respuesta:</em> se espera que sea ingresado satisfactoriamente a la base de datos.<br/>
 
 
