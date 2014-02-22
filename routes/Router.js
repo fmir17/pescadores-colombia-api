@@ -109,23 +109,18 @@ module.exports = function(app){
     };
 
     //consultar bitacora de un usuario
-    listshipslog=(function(req,res){
-        console.log(req.params.userId);
-        ShipsLog.find({userId:req.params.userId}, function(error,shipslog){
-        //ShipsLog.find({}, function(error,shipslog){
-            console.log('acato');
-            if(shipslog!=null){
-                console.log('entreif');
+    listshipslog=function(req,res){
+        ShipsLog.find({userId:req.params.userId}).select('place fish bait weight size description imageURL userId seasonId fishigpartners -_id ').exec(function(error,shipslog){
+            if(shipslog!=null)
+            {
                 res.send(shipslog);
-                console.log('entreif');
             }
             else{
-                console.log('entreelse');
-                //res.send(400, 'El usuario con id "'+req.params.userId+'" no tiene ninguna bitácora');
-            }
+                res.send(400, 'El usuario con id "'+req.params.userId+'" no tiene ninguna bitácora');
+                }
+        })
+    };
 
-            })
-    });
 
 
     //**Direccionar las peticiones a las funciones
