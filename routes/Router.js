@@ -5,6 +5,7 @@ module.exports = function(app){
     var River = require('../models/river');
     var Wall = require('../models/wall');
     var Image = require('../models/image');
+    var ShipsLog = require('../models/shipslog');
 
     //*Metodos para usuario*
     //Crear Nuevo usuario
@@ -29,7 +30,7 @@ module.exports = function(app){
             res.send(user);
 	}
 	else{
-		res.send(400, 'Usuario con id ' + 	req.params.id+' no encontrado');}
+		res.send(400, 'Usuario con id: "' + 	req.params.id+'"  no existe.');}
         })
     });
 
@@ -59,14 +60,23 @@ module.exports = function(app){
     //*Metodos para Muro*
     //Crear Nuevo comentario en Muro
     wall = function(req,res){
-        var wall = new Wall({author: req.body.author, body: req.body.body});
+        var date = new Date();
+
+        var datetime= pad2(date.getDate())+'-'+pad2(date.getMonth())+'-'+(date.getYear()+1900) +' '+ pad2(date.getHours()) + ':' + pad2(date.getMinutes()) + ':' +pad2(date.getSeconds()) ;
+            
+        var wall = new Wall({author: req.body.author, body: req.body.body, created_at:datetime});
         wall.save();
         res.end();
     };
+    
+    //funcion para establecer el cero en la fecha.
+    function pad2(number) {
+     return (number < 10 ? '0' : '') + number
+    }   
 
     //Buscar todos los comentarios en el muro
     listWall = function(req, res){
-        Wall.find({}).select('author body created_at -_id').exec(function(err, wall) {
+        Wall.find({}).select('author body created_at -_id').sort('-date').exec(function(err, wall) {
             res.send(wall);
         });
 
@@ -87,6 +97,37 @@ module.exports = function(app){
         res.end();
     };
 
+    //*Metodos para Imagenes*
+    //Enviar Bitacora
+    shipslog= function(req,res){
+        var shipslog = new ShipsLog({place:req.body.place,fish:req.body.fish,bait:req.body.bait,
+            weight:req.body.weight,size:req.body.size,description:req.body.description,imageURL:req.body.imageURL,
+            userId:req.body.userId,seasonId:req.body.seasonId,fishigpartners:req.body.fishigpartners});
+        shipslog.save();
+        res.end();     
+
+    };
+
+    //consultar bitacora de un usuario
+    listshipslog=(function(req,res){
+        console.log(req.params.userId);
+        ShipsLog.find({userId:req.params.userId}, function(error,shipslog){
+        //ShipsLog.find({}, function(error,shipslog){
+            console.log('acato');
+            if(shipslog!=null){
+                console.log('entreif');
+                res.send(shipslog);
+                console.log('entreif');
+            }
+            else{
+                console.log('entreelse');
+                //res.send(400, 'El usuario con id "'+req.params.userId+'" no tiene ninguna bitácora');
+            }
+
+            })
+    });
+
+
     //**Direccionar las peticiones a las funciones
 	//Redireccion para user
     app.post('/user', user);
@@ -105,4 +146,8 @@ module.exports = function(app){
 	//Redireccion para image
     app.post('/image', image);
     app.get('/image', listImage);
+
+    //Redireccion para Bitacora
+    app.post('/shipslog',shipslog);
+    app.get('/shipslog/:userId',listshipslog);
 }
