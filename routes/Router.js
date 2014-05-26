@@ -5,7 +5,7 @@ module.exports = function(app){
     var River = require('../models/river');
     var Wall = require('../models/wall');
     var Image = require('../models/image');
-    var ShipsLog = require('../models/shipslog');
+    var FishingLog = require('../models/fishinglog');
 
     //*Metodos para usuario*
     //Crear Nuevo usuario
@@ -99,21 +99,21 @@ module.exports = function(app){
 
     //*Metodos para Imagenes*
     //Enviar Bitacora
-    shipslog= function(req,res){
-        var shipslog = new ShipsLog({place:req.body.place,fish:req.body.fish,bait:req.body.bait,
+    fishinglog= function(req,res){
+        var fishinglog = new FishingLog({place:req.body.place,fish:req.body.fish,bait:req.body.bait,
             weight:req.body.weight,size:req.body.size,description:req.body.description,imageURL:req.body.imageURL,
             userId:req.body.userId,seasonId:req.body.seasonId,fishigpartners:req.body.fishigpartners});
-        shipslog.save();
+        fishinglog.save();
         res.end();     
 
     };
 
     //consultar bitacora de un usuario
-    listshipslog=function(req,res){
-        ShipsLog.find({userId:req.params.userId}).select('place fish bait weight size description imageURL userId seasonId fishigpartners -_id ').exec(function(error,shipslog){
-            if(shipslog!=null)
+    listfishinglog=function(req,res){
+        FishingLog.find({userId:req.params.userId}).select('place fish bait weight size description imageURL userId seasonId fishigpartners -_id ').exec(function(error,fishinglog){
+            if(fishinglog!=null)
             {
-                res.send(shipslog);
+                res.send(fishinglog);
             }
             else{
                 res.send(400, 'El usuario con id "'+req.params.userId+'" no tiene ninguna bitácora');
@@ -143,6 +143,6 @@ module.exports = function(app){
     app.get('/image', listImage);
 
     //Redireccion para Bitacora
-    app.post('/shipslog',shipslog);
-    app.get('/shipslog/:userId',listshipslog);
+    app.post('/fishinglog',fishinglog);
+    app.get('/fishinglog/:userId',listfishinglog);
 }

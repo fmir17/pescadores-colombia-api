@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 //Esquema para bitacora
-var shipslogSchema = new Schema({
+var fishinglogSchema = new Schema({
 	place: String,
 	date: {type: Date},
 	//hour
@@ -20,4 +20,4 @@ var shipslogSchema = new Schema({
 
 
 //exportar Esquema
-module.exports = mongoose.model('ShipsLog', shipslogSchema);
+module.exports = mongoose.model('FishingLog', fishinglogSchema);
