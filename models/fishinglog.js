@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
 
 //Esquema para bitacora
 var fishinglogSchema = new Schema({
+	title:String,
 	place: String,
 	date: {type: Date},
 	//hour
@@ -15,7 +16,7 @@ var fishinglogSchema = new Schema({
 	imageURL: String,
 	userId: String,
 	seasonId: String,
-	fishingpartners: String,
+	fishingpartners: String
 });
 
 

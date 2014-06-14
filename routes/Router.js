@@ -76,11 +76,15 @@ module.exports = function(app){
 
     //Buscar todos los comentarios en el muro
     listWall = function(req, res){
-        Wall.find({}).select('author body created_at -_id').sort('-date').exec(function(err, wall) {
+        
+        var numberWalls = Number(req.params.count);
+        var numberToShow=numberWalls*10;
+
+        Wall.find({}).select('author body created_at -_id').sort('-date').limit(numberToShow).exec(function(err, wall) {
             res.send(wall);
         });
 
-    };
+    }; 
 
     //*Metodos para Imagenes*
     //Consultar ultimas 4 imagenes
@@ -97,20 +101,35 @@ module.exports = function(app){
         res.end();
     };
 
-    //*Metodos para Imagenes*
+    //*Metodos para Bitacora*
     //Enviar Bitacora
     fishinglog= function(req,res){
-        var fishinglog = new FishingLog({place:req.body.place,fish:req.body.fish,bait:req.body.bait,
+        var fishinglog = new FishingLog({title:req.body.title,place:req.body.place,date:req.body.date,fish:req.body.fish,bait:req.body.bait,
             weight:req.body.weight,size:req.body.size,description:req.body.description,imageURL:req.body.imageURL,
-            userId:req.body.userId,seasonId:req.body.seasonId,fishigpartners:req.body.fishigpartners});
+            userId:req.body.userId,seasonId:req.body.seasonId,fishingpartners:req.body.fishingpartners});
         fishinglog.save();
         res.end();     
 
     };
 
-    //consultar bitacora de un usuario
-    listfishinglog=function(req,res){
-        FishingLog.find({userId:req.params.userId}).select('place fish bait weight size description imageURL userId seasonId fishigpartners -_id ').exec(function(error,fishinglog){
+    //consultar resumen bitacoras de un usuario
+    listfishinglogUser=function(req,res){
+        FishingLog.find({userId:req.params.userId}).sort('-date').select('title place date fish -_id ').exec(function(error,fishinglog){
+            if(fishinglog!=null)
+            {
+                res.send(fishinglog);
+            }
+            else{
+                res.send(400, 'El usuario con id "'+req.params.userId+'" no tiene ninguna bitácora');
+                }
+        })
+    };
+
+
+
+    //consultar una bitacora determinada de un usuario
+    findFishinglogByTitle=function(req,res){
+        FishingLog.find({userId:req.params.userId,title:req.params.title}).select('title place date fish bait weight size description imageURL userId seasonId fishingpartners -_id ').exec(function(error,fishinglog){
             if(fishinglog!=null)
             {
                 res.send(fishinglog);
@@ -136,7 +155,7 @@ module.exports = function(app){
 
 	//Redireccion para wall
     app.post('/wall', wall);
-    app.get('/wall', listWall);
+    app.get('/wall/:count', listWall);
 
 	//Redireccion para image
     app.post('/image', image);
@@ -144,5 +163,6 @@ module.exports = function(app){
 
     //Redireccion para Bitacora
     app.post('/fishinglog',fishinglog);
-    app.get('/fishinglog/:userId',listfishinglog);
+    app.get('/fishinglog/:userId',listfishinglogUser);
+    app.get('/fishinglog/:userId/:title',findFishinglogByTitle);
 }
