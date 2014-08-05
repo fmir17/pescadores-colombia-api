@@ -4,11 +4,9 @@ var mongoose = require('mongoose'),
 
 //nombre de variables como las entregaría fb.
 var userSchema = new Schema({
-    id: String,
     name: String,
-    familyName: String,
-    email: String,
-    city: String
+    password: String,
+    email: String
 });
 
 //Exportar esquema

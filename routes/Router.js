@@ -10,7 +10,7 @@ module.exports = function(app){
     //*Metodos para usuario*
     //Crear Nuevo usuario
     user = function(req, res){
-        var user = new User({provider: req.body.provider, id: req.body.id, name: req.body.name, familyName: req.body.familyName, email: req.body.email, city: req.body.city});
+        var user = new User({name: req.body.name,password:req.body.password, email: req.body.email});
         user.save();
         res.end();
     };
@@ -18,19 +18,33 @@ module.exports = function(app){
 
     //Buscar todos los usuarios
     listUser = function(req, res){
-        User.find({}).select('id name familyName email city -_id').exec(function(err, user) {
+        User.find({}).select('name email -_id').exec(function(err, user) {
             res.send(user);
         });
     };
 
-    //Buscar si usuario ya existe con id
+    //Buscar si usuario ya existe con email
     find = (function(req, res) {
-        User.findOne({id: req.params.id}, function(error, user) {
-	if(user!=null){
-            res.send(user);
-	}
-	else{
-		res.send(400, 'Usuario con id: "' + 	req.params.id+'"  no existe.');}
+        User.findOne({email: req.params.email}, function(error, user) {
+            	if(user!=null){
+                    res.send("true");
+            	}
+                })
+
+    });
+
+    //Autenticar Usuario
+    findUser = (function(req, res) {
+        console.log('d'+req.params.name+' '+req.params.password);
+        User.findOne({name: req.body.name,password:req.body.password}, function(error, user) {
+            if(user!=null){
+                    res.send("true");
+                    res.end();
+            }
+            else{
+                res.send("false");
+                res.end();
+            }
         })
     });
 
@@ -145,8 +159,9 @@ module.exports = function(app){
     //**Direccionar las peticiones a las funciones
 	//Redireccion para user
     app.post('/user', user);
+    app.post('/user/validation', findUser);
     app.get('/user', listUser);
-    app.get('/user/:id', find);
+    app.get('/user/:email', find);
     app.delete('/user/:id', remove);	
 
 	//Redireccion para river
